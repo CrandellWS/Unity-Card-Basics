@@ -55,7 +55,7 @@ public class Card : MonoBehaviour
 	private void SmoothToPointAndDirection(Vector3 point, float moveSmooth, Quaternion rotation, float rotSmooth)
 	{
 		//transform.position = Vector3.SmoothDamp(transform.position, point, ref _smoothVelocity, moveSmooth);	
-		transform.position = Vector3.Lerp( transform.position, point, 1 - Mathf.Exp( -2 * Time.deltaTime )  );
+		transform.position = Vector3.Lerp( transform.position, point, 1 - Mathf.Exp( -1 * Time.deltaTime )  );
 		Quaternion newRotation;
 		newRotation.x = Mathf.SmoothDamp(transform.rotation.x, rotation.x, ref _smoothRotationVelocity.x, rotSmooth); 
 		newRotation.y = Mathf.SmoothDamp(transform.rotation.y, rotation.y, ref _smoothRotationVelocity.y, rotSmooth); 
