@@ -48,7 +48,7 @@ public class Dealer : MonoBehaviour
 	[SerializeField]
 	private CardSlot _prior5CardSlot;																																								
 
-	private const float CardStackDelay = .01f;
+	private const float CardStackDelay = .001f;
 	
 	/// <summary>
 	/// Counter which keeps track current dealing movements in progress.
@@ -57,7 +57,8 @@ public class Dealer : MonoBehaviour
 
 	private void Awake()
 	{
-		_cardDeck.InstanatiateDeck("cards");
+		_cardDeck.InstanatiateDeck("tarotbasic");
+		//_cardDeck.InstanatiateDeck("cards");
 		StartCoroutine(StackCardRangeOnSlot(0, _cardDeck.CardList.Count, _stackCardSlot));
 	}
     
@@ -99,18 +100,18 @@ public class Dealer : MonoBehaviour
 		MoveCardSlotToCardSlot(_prior5CardSlot, _pickupCardSlot);	
 		MoveCardSlotToCardSlot(_discardStackCardSlot, _pickupCardSlot);
 		MoveCardSlotToCardSlot(_currentCardSlot, _pickupCardSlot);			
-		yield return new WaitForSeconds(.4f);	
+		yield return new WaitForSeconds(.01f);	
 		int halfLength = _cardDeck.CardList.Count / 2;
 		for (int i = 0; i < halfLength; ++i)
 		{
 			_leftHandCardSlot.AddCard(_pickupCardSlot.TopCard());
 		}
-		yield return new WaitForSeconds(.2f);	
+		yield return new WaitForSeconds(.01f);	
 		for (int i = 0; i < halfLength; ++i)
 		{
 			_rightHandCardSlot.AddCard(_pickupCardSlot.TopCard());
 		}
-		yield return new WaitForSeconds(.2f);	
+		yield return new WaitForSeconds(.01f);	
 		for (int i = 0; i < _cardDeck.CardList.Count; ++i)
 		{
 			if (i % 2 == 0)
@@ -123,24 +124,24 @@ public class Dealer : MonoBehaviour
 			}
 			yield return new WaitForSeconds(CardStackDelay);
 		}
-		yield return new WaitForSeconds(.2f);
+		yield return new WaitForSeconds(.01f);
 		for (int i = 0; i < halfLength; ++i)
 		{
 			_leftHandCardSlot.AddCard(_stackCardSlot.TopCard());
 		}
-		yield return new WaitForSeconds(.2f);	
+		yield return new WaitForSeconds(.01f);	
 		for (int i = 0; i < halfLength; ++i)
 		{
 			_rightHandCardSlot.AddCard(_stackCardSlot.TopCard());
 		}
 
-		yield return new WaitForSeconds(.2f);
+		yield return new WaitForSeconds(.01f);
 		for (int i = 0; i < halfLength; ++i)
 		{
 			_stackCardSlot.AddCard(_leftHandCardSlot.TopCard());
 			yield return new WaitForSeconds(CardStackDelay);
 		}
-		yield return new WaitForSeconds(.2f);
+		yield return new WaitForSeconds(.01f);
 		for (int i = 0; i < halfLength; ++i)
 		{
 			_stackCardSlot.AddCard(_rightHandCardSlot.TopCard());
