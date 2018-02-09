@@ -1,17 +1,15 @@
 ManifestFileVersion: 0
-CRC: 3379608041
+CRC: 1410978490
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: c550f9d007f62690621f0dde8405dd24
+    Hash: 4f4bd82e62f2f6c5587b7cdd133cdede
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 21f0dc8ebad690f009368069428e0a1a
+    Hash: 4cd0a5558493b0679e071c141fc729a3
 HashAppended: 0
 ClassTypes:
 - Class: 28
-  Script: {instanceID: 0}
-- Class: 213
   Script: {instanceID: 0}
 Assets:
 - Assets/CardFramework/AssetBundles/Cards/10_of_diamonds.png
