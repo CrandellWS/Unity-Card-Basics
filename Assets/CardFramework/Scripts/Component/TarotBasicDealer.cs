@@ -28,28 +28,28 @@ public class TarotBasicDealer : MonoBehaviour
 	private CardSlot _leftHandCardSlot;
 
 	[SerializeField]
-	private CardSlot _currentCardSlot;	
+	public CardSlot _currentCardSlot;	
 
 	[SerializeField]
-	private CardSlot _prior0CardSlot;	
+	public CardSlot _prior0CardSlot;	
 
 	[SerializeField]
-	private CardSlot _prior1CardSlot;	
+	public CardSlot _prior1CardSlot;	
 
 	[SerializeField]
-	private CardSlot _prior2CardSlot;		
+	public CardSlot _prior2CardSlot;		
 
 	[SerializeField]
-	private CardSlot _prior3CardSlot;
+	public CardSlot _prior3CardSlot;
 
 	[SerializeField]
-	private CardSlot _prior4CardSlot;
+	public CardSlot _prior4CardSlot;
 
 	[SerializeField]
-	private CardSlot _prior5CardSlot;
+	public CardSlot _prior5CardSlot;
 
 	[SerializeField]
-	private CardSlot _prior6CardSlot;
+	public CardSlot _prior6CardSlot;
 
 	private const float CardStackDelay = .001f;
 	
@@ -193,34 +193,33 @@ public class TarotBasicDealer : MonoBehaviour
 	{
 		DealInProgress++;
 
-//		if (_discardHoverStackCardSlot.AddCard(_prior6CardSlot.TopCard()))
-//		{	
-//			yield return new WaitForSeconds(CardStackDelay);	
-//		}	
-//		if (_discardStackCardSlot.AddCard(_discardHoverStackCardSlot.TopCard()))
-//		{
-//			yield return new WaitForSeconds(CardStackDelay);
-//		}
+		//		if (_discardHoverStackCardSlot.AddCard(_prior6CardSlot.TopCard()))
+		//		{	
+		//			yield return new WaitForSeconds(CardStackDelay);	
+		//		}	
+		//		if (_discardStackCardSlot.AddCard(_discardHoverStackCardSlot.TopCard()))
+		//		{
+		//			yield return new WaitForSeconds(CardStackDelay);
+		//		}
 
-		if(cardCheveron5Lock && !cardCheveron6Lock && cardCheveronCurrent)
-			if (_prior6CardSlot.AddCard(_currentCardSlot.TopCard()))
+		if(!cardCheveron0Lock && cardCheveronCurrent)
+			if (_prior0CardSlot.AddCard(_currentCardSlot.TopCard()))
 			{
-				cardCheveron6Lock = true;
+				cardCheveron0Lock = true;
 				cardCheveronCurrent = false;
-				yield return new WaitForSeconds(CardStackDelay);
-			}
-
-		if(cardCheveron4Lock && !cardCheveron5Lock && cardCheveronCurrent)
-			if (_prior5CardSlot.AddCard(_currentCardSlot.TopCard()))
+				yield return new WaitForSeconds(CardStackDelay);		
+		}
+		if(cardCheveron0Lock && !cardCheveron1Lock && cardCheveronCurrent)
+			if (_prior1CardSlot.AddCard(_currentCardSlot.TopCard()))
 			{
-				cardCheveron5Lock = true;
+				cardCheveron1Lock = true;
 				cardCheveronCurrent = false;
-				yield return new WaitForSeconds(CardStackDelay);
+				yield return new WaitForSeconds(CardStackDelay);	
 			}
-		if(cardCheveron3Lock && !cardCheveron4Lock && cardCheveronCurrent)
-			if (_prior4CardSlot.AddCard(_currentCardSlot.TopCard()))
+		if(cardCheveron1Lock && !cardCheveron2Lock && cardCheveronCurrent)
+			if (_prior2CardSlot.AddCard(_currentCardSlot.TopCard()))
 			{
-				cardCheveron4Lock = true;
+				cardCheveron2Lock = true;
 				cardCheveronCurrent = false;
 				yield return new WaitForSeconds(CardStackDelay);
 			}
@@ -231,26 +230,26 @@ public class TarotBasicDealer : MonoBehaviour
 				cardCheveronCurrent = false;
 				yield return new WaitForSeconds(CardStackDelay);
 			}
-		if(cardCheveron1Lock && !cardCheveron2Lock && cardCheveronCurrent)
-			if (_prior2CardSlot.AddCard(_currentCardSlot.TopCard()))
+		if(cardCheveron3Lock && !cardCheveron4Lock && cardCheveronCurrent)
+			if (_prior4CardSlot.AddCard(_currentCardSlot.TopCard()))
 			{
-				cardCheveron2Lock = true;
+				cardCheveron4Lock = true;
 				cardCheveronCurrent = false;
 				yield return new WaitForSeconds(CardStackDelay);
 			}
-		if(cardCheveron0Lock && !cardCheveron1Lock && cardCheveronCurrent)
-			if (_prior1CardSlot.AddCard(_currentCardSlot.TopCard()))
+		if(cardCheveron4Lock && !cardCheveron5Lock && cardCheveronCurrent)
+			if (_prior5CardSlot.AddCard(_currentCardSlot.TopCard()))
 			{
-				cardCheveron1Lock = true;
+				cardCheveron5Lock = true;
 				cardCheveronCurrent = false;
-				yield return new WaitForSeconds(CardStackDelay);	
+				yield return new WaitForSeconds(CardStackDelay);
 			}
-		if(!cardCheveron0Lock && cardCheveronCurrent)
-			if (_prior0CardSlot.AddCard(_currentCardSlot.TopCard()))
+		if(cardCheveron5Lock && !cardCheveron6Lock && cardCheveronCurrent)
+			if (_prior6CardSlot.AddCard(_currentCardSlot.TopCard()))
 			{
-				cardCheveron0Lock = true;
+				cardCheveron6Lock = true;
 				cardCheveronCurrent = false;
-				yield return new WaitForSeconds(CardStackDelay);		
+				yield return new WaitForSeconds(CardStackDelay);
 			}
 
 		if (!cardCheveron6Lock && !cardCheveronCurrent) {
@@ -263,16 +262,54 @@ public class TarotBasicDealer : MonoBehaviour
 			}
 		}
 
-//		int collectiveFaceValue = _prior0CardSlot.FaceValue();
-//		collectiveFaceValue += _prior1CardSlot.FaceValue();
-//		collectiveFaceValue += _prior2CardSlot.FaceValue();
-//		collectiveFaceValue += _prior3CardSlot.FaceValue();
-//		collectiveFaceValue += _prior4CardSlot.FaceValue();
-//		collectiveFaceValue += _prior5CardSlot.FaceValue();
-//		collectiveFaceValue += _prior6CardSlot.FaceValue();
-//		collectiveFaceValue += _currentCardSlot.FaceValue();	
+		//		int collectiveFaceValue = _prior0CardSlot.FaceValue();
+		//		collectiveFaceValue += _prior1CardSlot.FaceValue();
+		//		collectiveFaceValue += _prior2CardSlot.FaceValue();
+		//		collectiveFaceValue += _prior3CardSlot.FaceValue();
+		//		collectiveFaceValue += _prior4CardSlot.FaceValue();
+		//		collectiveFaceValue += _prior5CardSlot.FaceValue();
+		//		collectiveFaceValue += _prior6CardSlot.FaceValue();
+		//		collectiveFaceValue += _currentCardSlot.FaceValue();	
 		TarotBasicDealerUIInstance.FaceValueText.text = _currentCardSlot.FaceValue();
-		
+
 		DealInProgress--;
-	}	
+	}
+
+
+	public IEnumerator DisplayCoroutine(CardSlot mCardSlot)
+	{
+		DealInProgress++;
+		if(!cardCheveronPlacing){
+			cardCheveronCurrent = true;
+			cardCheveronPlacing = true;
+			_currentCardSlot.AddCard (mCardSlot.TopCard ());
+
+			if (mCardSlot == _prior0CardSlot)
+				cardCheveron0Lock = false;
+			if (mCardSlot ==_prior1CardSlot)
+				cardCheveron1Lock = false;			
+			if (mCardSlot == _prior2CardSlot)
+				cardCheveron2Lock = false;
+			if (mCardSlot == _prior3CardSlot)
+				cardCheveron3Lock = false;
+			if (mCardSlot == _prior4CardSlot)
+				cardCheveron4Lock = false;
+			if (mCardSlot == _prior5CardSlot)
+				cardCheveron5Lock = false;
+			if (mCardSlot == _prior6CardSlot)
+				cardCheveron6Lock = false;
+			
+			yield return new WaitForSeconds(CardStackDelay);
+			//		int collectiveFaceValue = _prior0CardSlot.FaceValue();
+			//		collectiveFaceValue += _prior1CardSlot.FaceValue();
+			//		collectiveFaceValue += _prior2CardSlot.FaceValue();
+			//		collectiveFaceValue += _prior3CardSlot.FaceValue();
+			//		collectiveFaceValue += _prior4CardSlot.FaceValue();
+			//		collectiveFaceValue += _prior5CardSlot.FaceValue();
+			//		collectiveFaceValue += _prior6CardSlot.FaceValue();
+			//		collectiveFaceValue += _currentCardSlot.FaceValue();	
+			TarotBasicDealerUIInstance.FaceValueText.text = _currentCardSlot.FaceValue();
+		}
+		DealInProgress--;
+	}
 }

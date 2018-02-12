@@ -40,6 +40,24 @@ public class TarotBasicDealerUI : MonoBehaviour
 		}
 	}
 
+	public void DrawDisplay(CardSlot mCardSlot){
+
+		if (_dealer.DealInProgress == 0)
+		{
+			if (mCardSlot == _dealer._prior0CardSlot ||
+				mCardSlot == _dealer._prior1CardSlot ||
+				mCardSlot == _dealer._prior2CardSlot ||
+				mCardSlot == _dealer._prior3CardSlot ||
+				mCardSlot == _dealer._prior4CardSlot ||
+				mCardSlot == _dealer._prior5CardSlot ||
+				mCardSlot == _dealer._prior6CardSlot )
+					StartCoroutine(_dealer.DisplayCoroutine(mCardSlot));
+			else
+				Draw ();
+		}
+
+	}
+
 	void Update()
 	{
 
@@ -51,8 +69,8 @@ public class TarotBasicDealerUI : MonoBehaviour
 					// Construct a ray from the current touch coordinates
 					Ray ray = Camera.main.ScreenPointToRay (Input.GetTouch (i).position);
 					if (Physics.Raycast (ray, out hit)) {
-						Debug.Log ("Something Hit =" + hit.collider.name);
-						Draw ();
+						Debug.Log ("Something Hit =" + hit.collider.name );
+						DrawDisplay ((hit.collider.GetComponentInParent<Card>()).ParentCardSlot);
 					}
 				}
 			}
@@ -63,7 +81,8 @@ public class TarotBasicDealerUI : MonoBehaviour
 					if(Physics.Raycast(ray, out hit)) {
 						print(hit.collider.name);
 						Debug.Log ("Something Hit =" + hit.collider.name);
-						Draw ();
+						Debug.Log ("CardSlot =" + (hit.collider.GetComponentInParent<Card>()).ParentCardSlot);
+						DrawDisplay ((hit.collider.GetComponentInParent<Card>()).ParentCardSlot);
 					}
 				}
 			}
