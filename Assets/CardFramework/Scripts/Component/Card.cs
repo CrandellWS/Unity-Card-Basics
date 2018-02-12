@@ -27,7 +27,7 @@ public class Card : MonoBehaviour
     
 	public CardSlot ParentCardSlot { get; set; }
 	
-	public int FaceValue { get; set; }
+	public string FaceValue { get; set; }
     
 	private float _positionDamp = .05f;
 

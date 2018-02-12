@@ -93,7 +93,7 @@ public class TarotBasicDealer : MonoBehaviour
 	public IEnumerator ShuffleCoroutine()
 	{
 		DealInProgress++;
-		TarotBasicDealerUIInstance.FaceValueText.text = "0";
+		TarotBasicDealerUIInstance.FaceValueText.text = " ";
 		MoveCardSlotToCardSlot(_stackCardSlot, _pickupCardSlot);		
 		MoveCardSlotToCardSlot(_prior0CardSlot, _pickupCardSlot);
 		MoveCardSlotToCardSlot(_prior1CardSlot, _pickupCardSlot);	
@@ -263,15 +263,15 @@ public class TarotBasicDealer : MonoBehaviour
 			}
 		}
 
-		int collectiveFaceValue = _prior0CardSlot.FaceValue();
-		collectiveFaceValue += _prior1CardSlot.FaceValue();
-		collectiveFaceValue += _prior2CardSlot.FaceValue();
-		collectiveFaceValue += _prior3CardSlot.FaceValue();
-		collectiveFaceValue += _prior4CardSlot.FaceValue();
-		collectiveFaceValue += _prior5CardSlot.FaceValue();
-		collectiveFaceValue += _prior6CardSlot.FaceValue();
-		collectiveFaceValue += _currentCardSlot.FaceValue();	
-		TarotBasicDealerUIInstance.FaceValueText.text = collectiveFaceValue.ToString();
+//		int collectiveFaceValue = _prior0CardSlot.FaceValue();
+//		collectiveFaceValue += _prior1CardSlot.FaceValue();
+//		collectiveFaceValue += _prior2CardSlot.FaceValue();
+//		collectiveFaceValue += _prior3CardSlot.FaceValue();
+//		collectiveFaceValue += _prior4CardSlot.FaceValue();
+//		collectiveFaceValue += _prior5CardSlot.FaceValue();
+//		collectiveFaceValue += _prior6CardSlot.FaceValue();
+//		collectiveFaceValue += _currentCardSlot.FaceValue();	
+		TarotBasicDealerUIInstance.FaceValueText.text = _currentCardSlot.FaceValue();
 		
 		DealInProgress--;
 	}	

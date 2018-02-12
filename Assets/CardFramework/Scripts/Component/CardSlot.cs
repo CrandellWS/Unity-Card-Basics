@@ -21,15 +21,14 @@ public class CardSlot : MonoBehaviour
 	{
 		GetComponent<MeshRenderer>().enabled = false;
 	}
-	
-	public int FaceValue()
+
+	public string FaceValue()
 	{
-		int collectiveFaceValue = 0;
-		for (int i = 0; i < CardList.Count; ++i)
-		{
-			collectiveFaceValue += CardList[ i ].FaceValue;
+		if(TopCard() != null)
+			return TopCard().FaceValue;
+		else {
+			return " ";
 		}
-		return collectiveFaceValue;
 	}
     
 	public Card TopCard()

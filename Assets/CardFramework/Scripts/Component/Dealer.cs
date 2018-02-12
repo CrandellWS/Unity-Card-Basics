@@ -189,14 +189,14 @@ public class Dealer : MonoBehaviour
 		}		
 		_currentCardSlot.AddCard(_stackCardSlot.TopCard());	
 		
-		int collectiveFaceValue = _prior0CardSlot.FaceValue();
-		collectiveFaceValue += _prior1CardSlot.FaceValue();
-		collectiveFaceValue += _prior2CardSlot.FaceValue();
-		collectiveFaceValue += _prior3CardSlot.FaceValue();
-		collectiveFaceValue += _prior4CardSlot.FaceValue();
-		collectiveFaceValue += _prior5CardSlot.FaceValue();
-		collectiveFaceValue += _currentCardSlot.FaceValue();	
-		DealerUIInstance.FaceValueText.text = collectiveFaceValue.ToString();
+//		int collectiveFaceValue = _prior0CardSlot.FaceValue();
+//		collectiveFaceValue += _prior1CardSlot.FaceValue();
+//		collectiveFaceValue += _prior2CardSlot.FaceValue();
+//		collectiveFaceValue += _prior3CardSlot.FaceValue();
+//		collectiveFaceValue += _prior4CardSlot.FaceValue();
+//		collectiveFaceValue += _prior5CardSlot.FaceValue();
+//		collectiveFaceValue += _currentCardSlot.FaceValue();	
+//		DealerUIInstance.FaceValueText.text = collectiveFaceValue.ToString();
 		
 		DealInProgress--;
 	}	
