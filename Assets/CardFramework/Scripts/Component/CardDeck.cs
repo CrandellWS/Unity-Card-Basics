@@ -28,7 +28,7 @@ public class CardDeck : MonoBehaviour
 			card.gameObject.name = Path.GetFileNameWithoutExtension(nameArray[ i ]);
 			card.TexturePath = nameArray[ i ];
 			card.SourceAssetBundlePath = cardBundlePath;
-			card.transform.position = new Vector3(0, 10, 0);
+			card.transform.position = new Vector3(0, 2, 0);
 			card.FaceValue = StringToFaceValue(card.gameObject.name);
 			CardList.Add(card);
 		}
