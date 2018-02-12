@@ -20,7 +20,9 @@ public class CardDeck : MonoBehaviour
 		//AssetBundle cardBundle = BundleSingleton.Instance.LoadBundle(DirectoryUtility.ExternalAssets() + cardBundlePath);
 
 		string[] nameArray = cardBundle.GetAllAssetNames();
-				
+
+		ShuffleArray (nameArray);
+
 		for (int i = 0; i < nameArray.Length; ++i)
 		{
 			GameObject cardInstance = (GameObject)Instantiate(_cardPrefab);
@@ -33,7 +35,16 @@ public class CardDeck : MonoBehaviour
 			CardList.Add(card);
 		}
 	}
-	
+
+	public static void ShuffleArray<T>(T[] arr) {
+		for (int i = arr.Length - 1; i > 0; i--) {
+			int r = Random.Range(0, i);
+			T tmp = arr[i];
+			arr[i] = arr[r];
+			arr[r] = tmp;
+		}
+	}
+
 	private int StringToFaceValue(string input)
 	{
 		for (int i = 2; i < 11; ++i)

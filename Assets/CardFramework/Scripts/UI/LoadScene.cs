@@ -20,12 +20,23 @@ public class LoadScene : MonoBehaviour
 
 	public void LoadMainMenu()
 	{
-//		Debug.Log("Scene0 loading: " + scenePaths[0]);
-//		Debug.Log("Scene1 loading: " + scenePaths[1]);
-//		Debug.Log("Scene2 loading: " + scenePaths[2]);
-//		Debug.Log("Scene3 loading: " + scenePaths[3]);
-		SceneManager.LoadScene ("MainMenu", LoadSceneMode.Single);
-		//SceneManager.LoadScene ("Assets/CardFramework/AssetBundles/Scenes/MainMenu.unity", LoadSceneMode.Single);
+		//		Debug.Log("Scene0 loading: " + scenePaths[0]);
+		//		Debug.Log("Scene1 loading: " + scenePaths[1]);
+		//		Debug.Log("Scene2 loading: " + scenePaths[2]);
+		//		Debug.Log("Scene3 loading: " + scenePaths[3]);
+//		SceneManager.LoadScene ("MainMenu", LoadSceneMode.Single);
+		SceneManager.LoadScene ("Assets/CardFramework/AssetBundles/Scenes/MainMenu.unity", LoadSceneMode.Single);
+		//SceneManager.LoadScene (scenePaths[1], LoadSceneMode.Single);
+	}
+
+	public void LoadTarot()
+	{
+		//		Debug.Log("Scene0 loading: " + scenePaths[0]);
+		//		Debug.Log("Scene1 loading: " + scenePaths[1]);
+		//		Debug.Log("Scene2 loading: " + scenePaths[2]);
+		//		Debug.Log("Scene3 loading: " + scenePaths[3]);
+//		SceneManager.LoadScene ("MainMenu", LoadSceneMode.Single);
+		SceneManager.LoadScene ("Assets/CardFramework/AssetBundles/Scenes/DealTarot.unity", LoadSceneMode.Single);
 		//SceneManager.LoadScene (scenePaths[1], LoadSceneMode.Single);
 	}
 }
