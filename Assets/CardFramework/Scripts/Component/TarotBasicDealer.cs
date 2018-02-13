@@ -84,7 +84,53 @@ public class TarotBasicDealer : MonoBehaviour
 		}
 		DealInProgress--;
 	}
-    
+
+	public IEnumerator GatherAllCoroutine()
+	{
+		DealInProgress++;
+
+		TarotBasicDealerUIInstance.FaceValueText.text = " ";
+		MoveCardSlotToCardSlot(_currentCardSlot, _pickupCardSlot);	
+		MoveCardSlotToCardSlot(_discardStackCardSlot, _pickupCardSlot);
+		MoveCardSlotToCardSlot(_discardHoverStackCardSlot, _pickupCardSlot);	
+		MoveCardSlotToCardSlot(_rightHandCardSlot, _pickupCardSlot);
+		MoveCardSlotToCardSlot(_leftHandCardSlot, _pickupCardSlot);	
+		MoveCardSlotToCardSlot(_prior0CardSlot, _pickupCardSlot);
+		MoveCardSlotToCardSlot(_prior1CardSlot, _pickupCardSlot);	
+		MoveCardSlotToCardSlot(_prior2CardSlot, _pickupCardSlot);		
+		MoveCardSlotToCardSlot(_prior3CardSlot, _pickupCardSlot);	
+		MoveCardSlotToCardSlot(_prior4CardSlot, _pickupCardSlot);	
+		MoveCardSlotToCardSlot(_prior5CardSlot, _pickupCardSlot);
+		MoveCardSlotToCardSlot(_prior6CardSlot, _pickupCardSlot);
+		//MoveCardSlotToCardSlot(_stackCardSlot, _pickupCardSlot);
+		MoveCardSlotToCardSlot(_pickupCardSlot, _stackCardSlot);
+
+		cheveronReset();		
+		yield return new WaitForSeconds(.1f);	
+
+		DealInProgress--;
+	}
+
+	public IEnumerator GatherOthersCoroutine()
+	{
+		DealInProgress++;
+		TarotBasicDealerUIInstance.FaceValueText.text = " ";
+		MoveCardSlotToCardSlot(_currentCardSlot, _pickupCardSlot);	
+		MoveCardSlotToCardSlot(_discardStackCardSlot, _pickupCardSlot);
+		MoveCardSlotToCardSlot(_discardHoverStackCardSlot, _pickupCardSlot);	
+		MoveCardSlotToCardSlot(_rightHandCardSlot, _pickupCardSlot);
+		MoveCardSlotToCardSlot(_leftHandCardSlot, _pickupCardSlot);	
+//		MoveCardSlotToCardSlot(_pickupCardSlot, _stackCardSlot);
+		MoveCardSlotToCardSlot(_stackCardSlot, _pickupCardSlot);
+		yield return new WaitForSeconds(.1f);	
+
+		DealInProgress--;
+	}
+
+
+
+
+
     /// <summary>
     /// Shuffle Coroutine.
     /// Moves all card to pickupCardSlot. Then shuffles them back
@@ -93,19 +139,11 @@ public class TarotBasicDealer : MonoBehaviour
 	public IEnumerator ShuffleCoroutine()
 	{
 		DealInProgress++;
-		TarotBasicDealerUIInstance.FaceValueText.text = " ";
-		MoveCardSlotToCardSlot(_stackCardSlot, _pickupCardSlot);		
-		MoveCardSlotToCardSlot(_prior0CardSlot, _pickupCardSlot);
-		MoveCardSlotToCardSlot(_prior1CardSlot, _pickupCardSlot);	
-		MoveCardSlotToCardSlot(_prior2CardSlot, _pickupCardSlot);		
-		MoveCardSlotToCardSlot(_prior3CardSlot, _pickupCardSlot);	
-		MoveCardSlotToCardSlot(_prior4CardSlot, _pickupCardSlot);	
-		MoveCardSlotToCardSlot(_prior5CardSlot, _pickupCardSlot);
-		MoveCardSlotToCardSlot(_prior6CardSlot, _pickupCardSlot);	
-		MoveCardSlotToCardSlot(_discardStackCardSlot, _pickupCardSlot);
-		MoveCardSlotToCardSlot(_currentCardSlot, _pickupCardSlot);			
-		yield return new WaitForSeconds(.1f);	
-		int halfLength = _cardDeck.CardList.Count / 2;
+
+		yield return StartCoroutine(GatherOthersCoroutine ());
+
+		int halfLength = _pickupCardSlot.CardList.Count / 2;
+		int fullLength = _pickupCardSlot.CardList.Count;
 
 		for (int i = 0; i < halfLength; ++i)
 		{
@@ -117,7 +155,7 @@ public class TarotBasicDealer : MonoBehaviour
 			_rightHandCardSlot.AddCard(_pickupCardSlot.TopCard());
 		}
 		yield return new WaitForSeconds(.01f);	
-		for (int i = 0; i < _cardDeck.CardList.Count; ++i)
+		for (int i = 0; i < fullLength; ++i)
 		{
 			if (i % 2 == 0)
 			{
@@ -130,8 +168,9 @@ public class TarotBasicDealer : MonoBehaviour
 			yield return new WaitForSeconds(CardStackDelay);
 		}
 
-		cheveronReset();
-
+		_stackCardSlot.AddCard(_pickupCardSlot.TopCard());//jic odd
+		yield return new WaitForSeconds(CardStackDelay);
+		//MoveCardSlotToCardSlot(_stackCardSlot, _pickupCardSlot);	
 		yield return new WaitForSeconds(.01f);
 
 		DealInProgress--;
@@ -166,6 +205,8 @@ public class TarotBasicDealer : MonoBehaviour
 			_stackCardSlot.AddCard(_rightHandCardSlot.TopCard());
 			yield return new WaitForSeconds(CardStackDelay);
 		}
+		yield return new WaitForSeconds(.01f);
+//		MoveCardSlotToCardSlot(_stackCardSlot, _pickupCardSlot);	
 		yield return new WaitForSeconds(.01f);
 		DealInProgress--;
 	}
@@ -301,6 +342,7 @@ public class TarotBasicDealer : MonoBehaviour
 		DealInProgress++;
 			cardCheveronCurrent = true;
 
+		if (_currentCardSlot.CardList.Count == 0) {
 			if (mCardSlot == _prior0CardSlot) {
 				cardCheveron0Lock = false;
 				FlipCardSlotUp (_prior0CardSlot);
@@ -337,7 +379,8 @@ public class TarotBasicDealer : MonoBehaviour
 				_currentCardSlot.AddCard (mCardSlot.TopCard ());
 			}
 			
-			yield return new WaitForSeconds(CardStackDelay);
+			yield return new WaitForSeconds (CardStackDelay);
+		}
 			//		int collectiveFaceValue = _prior0CardSlot.FaceValue();
 			//		collectiveFaceValue += _prior1CardSlot.FaceValue();
 			//		collectiveFaceValue += _prior2CardSlot.FaceValue();

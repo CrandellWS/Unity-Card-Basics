@@ -31,12 +31,20 @@ public class TarotBasicDealerUI : MonoBehaviour
 			StartCoroutine(_dealer.CutDeckCoroutine());
 		}
 	}
-	
+
 	public void Draw()
 	{
 		if (_dealer.DealInProgress == 0)
 		{
 			StartCoroutine(_dealer.DrawCoroutine());
+		}
+	}
+
+	public void GatherAll()
+	{
+		if (_dealer.DealInProgress == 0)
+		{
+			StartCoroutine(_dealer.GatherAllCoroutine());
 		}
 	}
 
