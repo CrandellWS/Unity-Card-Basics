@@ -9,6 +9,10 @@ public class Card : MonoBehaviour
 
 	public Texture mTexture { get; set; }
 
+	private void Awake(){
+		this.tag = "card";	
+	}
+
 	public Transform TargetTransform 
 	{ 
 		get 

@@ -104,7 +104,7 @@ public class TarotBasicDealer : MonoBehaviour
 		MoveCardSlotToCardSlot(_prior6CardSlot, _pickupCardSlot);	
 		MoveCardSlotToCardSlot(_discardStackCardSlot, _pickupCardSlot);
 		MoveCardSlotToCardSlot(_currentCardSlot, _pickupCardSlot);			
-		yield return new WaitForSeconds(.01f);	
+		yield return new WaitForSeconds(.1f);	
 		int halfLength = _cardDeck.CardList.Count / 2;
 
 		for (int i = 0; i < halfLength; ++i)
@@ -202,6 +202,7 @@ public class TarotBasicDealer : MonoBehaviour
 		//			yield return new WaitForSeconds(CardStackDelay);
 		//		}
 
+
 		if(!cardCheveron0Lock && cardCheveronCurrent)
 			if (_prior0CardSlot.AddCard(_currentCardSlot.TopCard()))
 			{
@@ -243,7 +244,7 @@ public class TarotBasicDealer : MonoBehaviour
 				cardCheveron5Lock = true;
 				cardCheveronCurrent = false;
 				yield return new WaitForSeconds(CardStackDelay);
-			}
+		}
 		if(cardCheveron5Lock && !cardCheveron6Lock && cardCheveronCurrent)
 			if (_prior6CardSlot.AddCard(_currentCardSlot.TopCard()))
 			{
@@ -260,8 +261,9 @@ public class TarotBasicDealer : MonoBehaviour
 				cardCheveronCurrent = true;
 				cardCheveronPlacing = true;
 			}
+		} else {
+			cardCheveronPlacing = false;
 		}
-
 		//		int collectiveFaceValue = _prior0CardSlot.FaceValue();
 		//		collectiveFaceValue += _prior1CardSlot.FaceValue();
 		//		collectiveFaceValue += _prior2CardSlot.FaceValue();
@@ -279,6 +281,7 @@ public class TarotBasicDealer : MonoBehaviour
 	public IEnumerator DisplayCoroutine(CardSlot mCardSlot)
 	{
 		DealInProgress++;
+//		print("cardCheveronPlacing "+cardCheveronPlacing);
 		if(!cardCheveronPlacing){
 			cardCheveronCurrent = true;
 			cardCheveronPlacing = true;
@@ -311,5 +314,27 @@ public class TarotBasicDealer : MonoBehaviour
 			TarotBasicDealerUIInstance.FaceValueText.text = _currentCardSlot.FaceValue();
 		}
 		DealInProgress--;
+	}
+
+
+	public void DrawDisplay(CardSlot mCardSlot){
+
+		if (DealInProgress == 0)
+		{
+			if (mCardSlot == _prior0CardSlot ||
+			    mCardSlot == _prior1CardSlot ||
+			    mCardSlot == _prior2CardSlot ||
+			    mCardSlot == _prior3CardSlot ||
+			    mCardSlot == _prior4CardSlot ||
+			    mCardSlot == _prior5CardSlot ||
+				mCardSlot == _prior6CardSlot) {
+				print ("DisplayCoroutine");
+				StartCoroutine (DisplayCoroutine (mCardSlot));
+			} else {
+				print ("DrawCoroutine");
+				StartCoroutine (DrawCoroutine ());
+			}
+		}
+
 	}
 }
