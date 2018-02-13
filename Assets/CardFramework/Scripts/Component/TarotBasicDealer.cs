@@ -155,6 +155,9 @@ public class TarotBasicDealer : MonoBehaviour
 			_rightHandCardSlot.AddCard(_pickupCardSlot.TopCard());
 		}
 		yield return new WaitForSeconds(.01f);	
+
+		_stackCardSlot.AddCard(_pickupCardSlot.TopCard());//jic odd
+		yield return new WaitForSeconds(CardStackDelay);
 		for (int i = 0; i < fullLength; ++i)
 		{
 			if (i % 2 == 0)
@@ -167,9 +170,6 @@ public class TarotBasicDealer : MonoBehaviour
 			}
 			yield return new WaitForSeconds(CardStackDelay);
 		}
-
-		_stackCardSlot.AddCard(_pickupCardSlot.TopCard());//jic odd
-		yield return new WaitForSeconds(CardStackDelay);
 		//MoveCardSlotToCardSlot(_stackCardSlot, _pickupCardSlot);	
 		yield return new WaitForSeconds(.01f);
 
