@@ -90,16 +90,17 @@ public class TarotBasicDealer : MonoBehaviour
 		DealInProgress++;
 
 		TarotBasicDealerUIInstance.FaceValueText.text = " ";
-		MoveCardSlotToCardSlot(_currentCardSlot, _pickupCardSlot);	
+		MoveCardSlotToCardSlot(_currentCardSlot, _pickupCardSlot);
+		cardCheveronCurrent = false;
 		MoveCardSlotToCardSlot(_discardStackCardSlot, _pickupCardSlot);
-		MoveCardSlotToCardSlot(_discardHoverStackCardSlot, _pickupCardSlot);	
+		MoveCardSlotToCardSlot(_discardHoverStackCardSlot, _pickupCardSlot);
 		MoveCardSlotToCardSlot(_rightHandCardSlot, _pickupCardSlot);
-		MoveCardSlotToCardSlot(_leftHandCardSlot, _pickupCardSlot);	
+		MoveCardSlotToCardSlot(_leftHandCardSlot, _pickupCardSlot);
 		MoveCardSlotToCardSlot(_prior0CardSlot, _pickupCardSlot);
-		MoveCardSlotToCardSlot(_prior1CardSlot, _pickupCardSlot);	
-		MoveCardSlotToCardSlot(_prior2CardSlot, _pickupCardSlot);		
-		MoveCardSlotToCardSlot(_prior3CardSlot, _pickupCardSlot);	
-		MoveCardSlotToCardSlot(_prior4CardSlot, _pickupCardSlot);	
+		MoveCardSlotToCardSlot(_prior1CardSlot, _pickupCardSlot);
+		MoveCardSlotToCardSlot(_prior2CardSlot, _pickupCardSlot);
+		MoveCardSlotToCardSlot(_prior3CardSlot, _pickupCardSlot);
+		MoveCardSlotToCardSlot(_prior4CardSlot, _pickupCardSlot);
 		MoveCardSlotToCardSlot(_prior5CardSlot, _pickupCardSlot);
 		MoveCardSlotToCardSlot(_prior6CardSlot, _pickupCardSlot);
 		//MoveCardSlotToCardSlot(_stackCardSlot, _pickupCardSlot);
@@ -115,14 +116,15 @@ public class TarotBasicDealer : MonoBehaviour
 	{
 		DealInProgress++;
 		TarotBasicDealerUIInstance.FaceValueText.text = " ";
-		MoveCardSlotToCardSlot(_currentCardSlot, _pickupCardSlot);	
+		MoveCardSlotToCardSlot(_currentCardSlot, _pickupCardSlot);
+		cardCheveronCurrent = false;
 		MoveCardSlotToCardSlot(_discardStackCardSlot, _pickupCardSlot);
-		MoveCardSlotToCardSlot(_discardHoverStackCardSlot, _pickupCardSlot);	
+		MoveCardSlotToCardSlot(_discardHoverStackCardSlot, _pickupCardSlot);
 		MoveCardSlotToCardSlot(_rightHandCardSlot, _pickupCardSlot);
-		MoveCardSlotToCardSlot(_leftHandCardSlot, _pickupCardSlot);	
+		MoveCardSlotToCardSlot(_leftHandCardSlot, _pickupCardSlot);
 //		MoveCardSlotToCardSlot(_pickupCardSlot, _stackCardSlot);
 		MoveCardSlotToCardSlot(_stackCardSlot, _pickupCardSlot);
-		yield return new WaitForSeconds(.1f);	
+		yield return new WaitForSeconds(.1f);
 
 		DealInProgress--;
 	}
@@ -222,6 +224,7 @@ public class TarotBasicDealer : MonoBehaviour
 		cardCheveron4Lock = false;
 		cardCheveron5Lock = false;
 		cardCheveron6Lock = false;
+
 
 		FlipCardSlotDown (_prior0CardSlot);
 		FlipCardSlotDown (_prior1CardSlot);
