@@ -181,13 +181,20 @@ public class TarotBasicDealer : MonoBehaviour
 		cardCheveron4Lock = false;
 		cardCheveron5Lock = false;
 		cardCheveron6Lock = false;
+
+		FlipCardSlotDown (_prior0CardSlot);
+		FlipCardSlotDown (_prior1CardSlot);
+		FlipCardSlotDown (_prior2CardSlot);
+		FlipCardSlotDown (_prior3CardSlot);
+		FlipCardSlotDown (_prior4CardSlot);
+		FlipCardSlotDown (_prior5CardSlot);
+		FlipCardSlotDown (_prior6CardSlot);
 	}
 
 	bool cardCheveron0Lock,cardCheveron1Lock,cardCheveron2Lock,
 	cardCheveron3Lock,cardCheveron4Lock,cardCheveron5Lock,cardCheveron6Lock = false;
 
 	bool cardCheveronCurrent = false;
-	bool cardCheveronPlacing = false;
 
 	public IEnumerator DrawCoroutine()
 	{
@@ -202,6 +209,12 @@ public class TarotBasicDealer : MonoBehaviour
 		//			yield return new WaitForSeconds(CardStackDelay);
 		//		}
 
+
+		if (!cardCheveron6Lock && !cardCheveronCurrent) {
+				_currentCardSlot.AddCard (_stackCardSlot.TopCard ());
+				cardCheveronCurrent = true;
+//			}
+		}
 
 		if(!cardCheveron0Lock && cardCheveronCurrent)
 			if (_prior0CardSlot.AddCard(_currentCardSlot.TopCard()))
@@ -252,18 +265,6 @@ public class TarotBasicDealer : MonoBehaviour
 				cardCheveronCurrent = false;
 				yield return new WaitForSeconds(CardStackDelay);
 			}
-
-		if (!cardCheveron6Lock && !cardCheveronCurrent) {
-			if (cardCheveronPlacing) {
-				cardCheveronPlacing = false;
-			} else {
-				_currentCardSlot.AddCard (_stackCardSlot.TopCard ());
-				cardCheveronCurrent = true;
-				cardCheveronPlacing = true;
-			}
-		} else {
-			cardCheveronPlacing = false;
-		}
 		//		int collectiveFaceValue = _prior0CardSlot.FaceValue();
 		//		collectiveFaceValue += _prior1CardSlot.FaceValue();
 		//		collectiveFaceValue += _prior2CardSlot.FaceValue();
@@ -273,34 +274,68 @@ public class TarotBasicDealer : MonoBehaviour
 		//		collectiveFaceValue += _prior6CardSlot.FaceValue();
 		//		collectiveFaceValue += _currentCardSlot.FaceValue();	
 		TarotBasicDealerUIInstance.FaceValueText.text = _currentCardSlot.FaceValue();
-
 		DealInProgress--;
+	}
+
+	void FlipCardSlotUp(CardSlot mCardSlot){
+
+		float y = mCardSlot.GetComponent<Transform>().rotation.eulerAngles.y;
+		float z = mCardSlot.GetComponent<Transform>().rotation.eulerAngles.z;
+		Quaternion rot = transform.localRotation;
+		rot.eulerAngles = new Vector3 (90f, y, z);
+		mCardSlot.GetComponent<Transform> ().rotation = rot;
+	}
+
+	void FlipCardSlotDown(CardSlot mCardSlot){
+
+		float y = mCardSlot.GetComponent<Transform>().rotation.eulerAngles.y;
+		float z = mCardSlot.GetComponent<Transform>().rotation.eulerAngles.z;
+		Quaternion rot = transform.localRotation;
+		rot.eulerAngles = new Vector3 (-90f, y, z);
+		mCardSlot.GetComponent<Transform> ().rotation = rot;
 	}
 
 
 	public IEnumerator DisplayCoroutine(CardSlot mCardSlot)
 	{
 		DealInProgress++;
-//		print("cardCheveronPlacing "+cardCheveronPlacing);
-		if(!cardCheveronPlacing){
 			cardCheveronCurrent = true;
-			cardCheveronPlacing = true;
-			_currentCardSlot.AddCard (mCardSlot.TopCard ());
 
-			if (mCardSlot == _prior0CardSlot)
+			if (mCardSlot == _prior0CardSlot) {
 				cardCheveron0Lock = false;
-			if (mCardSlot ==_prior1CardSlot)
-				cardCheveron1Lock = false;			
-			if (mCardSlot == _prior2CardSlot)
+				FlipCardSlotUp (_prior0CardSlot);
+				_currentCardSlot.AddCard (mCardSlot.TopCard ());
+			}
+			if (mCardSlot == _prior1CardSlot) {
+				cardCheveron1Lock = false;	
+				FlipCardSlotUp (_prior1CardSlot);
+				_currentCardSlot.AddCard (mCardSlot.TopCard ());
+			}
+			if (mCardSlot == _prior2CardSlot) {
 				cardCheveron2Lock = false;
-			if (mCardSlot == _prior3CardSlot)
+				FlipCardSlotUp (_prior2CardSlot);
+				_currentCardSlot.AddCard (mCardSlot.TopCard ());
+			}
+			if (mCardSlot == _prior3CardSlot) {
 				cardCheveron3Lock = false;
-			if (mCardSlot == _prior4CardSlot)
+				FlipCardSlotUp (_prior3CardSlot);
+				_currentCardSlot.AddCard (mCardSlot.TopCard ());
+			}
+			if (mCardSlot == _prior4CardSlot) {
 				cardCheveron4Lock = false;
-			if (mCardSlot == _prior5CardSlot)
+				FlipCardSlotUp (_prior4CardSlot);
+				_currentCardSlot.AddCard (mCardSlot.TopCard ());
+			}
+			if (mCardSlot == _prior5CardSlot) {
 				cardCheveron5Lock = false;
-			if (mCardSlot == _prior6CardSlot)
+				FlipCardSlotUp (_prior5CardSlot);
+				_currentCardSlot.AddCard (mCardSlot.TopCard ());
+			}
+			if (mCardSlot == _prior6CardSlot) {
 				cardCheveron6Lock = false;
+				FlipCardSlotUp (_prior6CardSlot);
+				_currentCardSlot.AddCard (mCardSlot.TopCard ());
+			}
 			
 			yield return new WaitForSeconds(CardStackDelay);
 			//		int collectiveFaceValue = _prior0CardSlot.FaceValue();
@@ -312,7 +347,6 @@ public class TarotBasicDealer : MonoBehaviour
 			//		collectiveFaceValue += _prior6CardSlot.FaceValue();
 			//		collectiveFaceValue += _currentCardSlot.FaceValue();	
 			TarotBasicDealerUIInstance.FaceValueText.text = _currentCardSlot.FaceValue();
-		}
 		DealInProgress--;
 	}
 
