@@ -79,6 +79,8 @@ public class StartOptions : MonoBehaviour {
         SceneManager.sceneLoaded -= SceneWasLoaded;
     }
 
+	bool sceneInit = false;
+
     //Once the level has loaded, check if we want to call PlayLevelMusic
     void SceneWasLoaded(Scene scene, LoadSceneMode mode)
     {
@@ -89,8 +91,9 @@ public class StartOptions : MonoBehaviour {
 		}
 		Debug.Log("OnSceneLoaded: " + scene.name);
 		Debug.Log(mode);
-		if(scene.buildIndex !=0)
-			StartCoroutine(FadeCanvasGroupAlpha(1f, 0f, fadeOutImageCanvasGroup));
+		if (scene.name != "MainMenu") {
+			StartCoroutine (FadeCanvasGroupAlpha (1f, 0f, fadeOutImageCanvasGroup));
+		}
 	}
 
 	public void LoadDelayed()
