@@ -52,6 +52,7 @@ public class ShowPanels : MonoBehaviour {
 	//Call this function to activate and display the main menu panel during the main menu
 	public void ShowMenu()
 	{
+		Debug.Log("ShowMenu() CAlled ");
 		menuPanel.SetActive (true);
         SetSelection(menuPanel);
     }

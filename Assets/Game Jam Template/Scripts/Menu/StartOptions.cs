@@ -12,8 +12,10 @@ public class StartOptions : MonoBehaviour {
 	public int sceneToStart = 1;										//Index number in build settings of scene to load if changeScenes is true
 	public bool changeScenes;											//If true, load a new scene when Start is pressed, if false, fade out UI and continue in single scene
 	public bool changeMusicOnStart;										//Choose whether to continue playing menu music or start a new music clip
-    public CanvasGroup fadeOutImageCanvasGroup;                         //Canvas group used to fade alpha of image which fades in before changing scenes
-    public Image fadeImage;                                             //Reference to image used to fade out before changing scenes
+	public CanvasGroup fadeOutImageCanvasGroup;                         //Canvas group used to fade alpha of image which fades in before changing scenes
+	public Image fadeImage;                                             //Reference to image used to fade out before changing scenes
+	public CanvasGroup BackgroundImageCanvasGroup;                         //Canvas group used to fade alpha of image which fades in before changing scenes
+	public Image BackgroundImage;                                             //Reference to image used to fade out before changing scenes
 
 	[HideInInspector] public bool inMainMenu = true;					//If true, pause button disabled in main menu (Cancel in input manager, default escape key)
 	[HideInInspector] public AnimationClip fadeAlphaAnimationClip;		//Animation clip fading out UI elements alpha
@@ -25,8 +27,28 @@ public class StartOptions : MonoBehaviour {
     private CanvasGroup menuCanvasGroup;
 
 
-    void Awake()
+
+	public static StartOptions instance = null;              //Static instance of GameManager which allows it to be accessed by any other script.
+
+	//Awake is always called before any Start functions
+	void Awake()
 	{
+		//Check if instance already exists
+		if (instance == null)
+
+			//if not, set instance to this
+			instance = this;
+
+		//If instance already exists and it's not this:
+		else if (instance != this)
+
+			//Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a GameManager.
+			Destroy(gameObject);    
+
+		//Sets this to not be destroyed when reloading scene
+		DontDestroyOnLoad(gameObject);
+
+
 		//Get a reference to ShowPanels attached to UI object
 		showPanels = GetComponent<ShowPanels> ();
 
@@ -37,6 +59,7 @@ public class StartOptions : MonoBehaviour {
         menuCanvasGroup = GetComponent<CanvasGroup>();
 
         fadeImage.color = menuSettingsData.sceneChangeFadeColor;
+
 	}
 
 
@@ -55,7 +78,7 @@ public class StartOptions : MonoBehaviour {
 			//Use invoke to delay calling of LoadDelayed by half the length of fadeColorAnimationClip
 			Invoke ("LoadDelayed", menuSettingsData.menuFadeTime);
 
-            StartCoroutine(FadeCanvasGroupAlpha(0f, 1f, fadeOutImageCanvasGroup));
+			StartCoroutine(FadeCanvasGroupAlphaHideMenu(0f, 1f, fadeOutImageCanvasGroup));
 
 
         } 
@@ -69,9 +92,44 @@ public class StartOptions : MonoBehaviour {
 
 	}
 
+
+	public void MainMenuButtonClicked()
+	{
+		//If changeMusicOnStart is true, fade out volume of music group of AudioMixer by calling FadeDown function of PlayMusic
+		//To change fade time, change length of animation "FadeToColor"
+		if (menuSettingsData.musicLoopToChangeTo != null) 
+		{
+			playMusic.FadeDown(menuSettingsData.menuFadeTime);
+		}
+
+		//Use invoke to delay calling of LoadDelayed by half the length of fadeColorAnimationClip
+		Invoke ("LoadDelayedMainMenu", menuSettingsData.menuFadeTime);
+
+		StartCoroutine(FadeCanvasGroupAlpha(0f, 1f, fadeOutImageCanvasGroup));
+
+	}
+
+
+	public void OptionsButtonClicked()
+	{
+		//If changeMusicOnStart is true, fade out volume of music group of AudioMixer by calling FadeDown function of PlayMusic
+		//To change fade time, change length of animation "FadeToColor"
+		if (menuSettingsData.musicLoopToChangeTo != null) 
+		{
+			playMusic.FadeDown(menuSettingsData.menuFadeTime);
+		}
+
+		//Use invoke to delay calling of LoadDelayed by half the length of fadeColorAnimationClip
+		Invoke ("LoadDelayedOptionsMenu", menuSettingsData.menuFadeTime);
+
+		StartCoroutine(FadeCanvasGroupAlpha(0f, 1f, fadeOutImageCanvasGroup));
+
+	}
+
     void OnEnable()
     {
         SceneManager.sceneLoaded += SceneWasLoaded;
+
     }
 
     void OnDisable()
@@ -91,8 +149,15 @@ public class StartOptions : MonoBehaviour {
 		}
 		Debug.Log("OnSceneLoaded: " + scene.name);
 		Debug.Log(mode);
+
 		if (scene.name != "MainMenu") {
-			StartCoroutine (FadeCanvasGroupAlpha (1f, 0f, fadeOutImageCanvasGroup));
+			Debug.Log("OnSceneLoaded: not MainMenu is " + scene.name);
+			StartCoroutine (FadeCanvasGroupAlphaHideMenu (1f, 0f, fadeOutImageCanvasGroup));
+			StartCoroutine (FadeCanvasGroupAlphaHideMenu (1f, 0f, BackgroundImageCanvasGroup));
+		} else {
+			Debug.Log("OnSceneLoaded: so MainMenu is " + scene.name);
+			showPanels.ShowMenu ();
+			StartCoroutine (FadeCanvasGroupAlpha (0f, 1f, BackgroundImageCanvasGroup));
 		}
 	}
 
@@ -106,6 +171,38 @@ public class StartOptions : MonoBehaviour {
 
 		//Load the selected scene, by scene index number in build settings
 		SceneManager.LoadScene (sceneToStart);
+	}
+
+	public void LoadDelayedMainMenu()
+	{
+		//Pause button now does not work if escape is pressed since we are going into the Main menu.
+		inMainMenu = true;
+
+		//Load the selected scene, by scene index number in build settings
+		//SceneManager.LoadScene (0);
+
+
+		//show the main menu UI element
+
+		StartCoroutine (FadeCanvasGroupAlpha (1f, 0f, fadeOutImageCanvasGroup));
+		showPanels.ShowMenu();
+
+		SceneManager.LoadScene ("Assets/CardFramework/AssetBundles/Scenes/MainMenu.unity", LoadSceneMode.Single);
+
+		Debug.Log("LoadDelayedMainMenu");
+	}
+
+
+	public void LoadDelayedOptionsMenu()
+	{
+
+		//show the main menu UI element
+
+		StartCoroutine (FadeCanvasGroupAlpha (1f, 0f, fadeOutImageCanvasGroup));
+
+		showPanels.ShowOptionsPanel();
+
+		Debug.Log("LoadDelayedOptionsMenu");
 	}
 
 	public void HideDelayed()
@@ -126,26 +223,43 @@ public class StartOptions : MonoBehaviour {
 			Invoke ("PlayNewMusic", menuSettingsData.menuFadeTime);
 		}
         
-        StartCoroutine(FadeCanvasGroupAlpha(1f,0f, menuCanvasGroup));
+		StartCoroutine(FadeCanvasGroupAlphaHideMenu(1f,0f, menuCanvasGroup));
 	}
 
-    public IEnumerator FadeCanvasGroupAlpha(float startAlpha, float endAlpha, CanvasGroup canvasGroupToFadeAlpha)
-    {
+	public IEnumerator FadeCanvasGroupAlpha(float startAlpha, float endAlpha, CanvasGroup canvasGroupToFadeAlpha)
+	{
 
-        float elapsedTime = 0f;
-        float totalDuration = menuSettingsData.menuFadeTime;
+		float elapsedTime = 0f;
+		float totalDuration = menuSettingsData.menuFadeTime;
 
-        while (elapsedTime < totalDuration)
-        {
-            elapsedTime += Time.deltaTime;
-            float currentAlpha = Mathf.Lerp(startAlpha, endAlpha, elapsedTime / totalDuration);
-            canvasGroupToFadeAlpha.alpha = currentAlpha;
-            yield return null;
-        }
+		while (elapsedTime < totalDuration)
+		{
+			elapsedTime += Time.deltaTime;
+			float currentAlpha = Mathf.Lerp(startAlpha, endAlpha, elapsedTime / totalDuration);
+			canvasGroupToFadeAlpha.alpha = currentAlpha;
+			yield return null;
+		}
 
-        HideDelayed();
-        Debug.Log("Coroutine done. Game started in same scene! Put your game starting stuff here.");
-    }
+		Debug.Log("Fade Image Coroutine done.");
+	}
+
+	public IEnumerator FadeCanvasGroupAlphaHideMenu(float startAlpha, float endAlpha, CanvasGroup canvasGroupToFadeAlpha)
+	{
+
+		float elapsedTime = 0f;
+		float totalDuration = menuSettingsData.menuFadeTime;
+
+		while (elapsedTime < totalDuration)
+		{
+			elapsedTime += Time.deltaTime;
+			float currentAlpha = Mathf.Lerp(startAlpha, endAlpha, elapsedTime / totalDuration);
+			canvasGroupToFadeAlpha.alpha = currentAlpha;
+			yield return null;
+		}
+
+		HideDelayed();
+		Debug.Log("Fade Image and hide menu Coroutine done.");
+	}
 
 
     public void PlayNewMusic()
@@ -155,4 +269,5 @@ public class StartOptions : MonoBehaviour {
 		//Play second music clip from MenuSettings
 		playMusic.PlaySelectedMusic (menuSettingsData.musicLoopToChangeTo);
 	}
+
 }
