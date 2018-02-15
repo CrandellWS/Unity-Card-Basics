@@ -112,19 +112,23 @@ public class StartOptions : MonoBehaviour {
 
 	public void OptionsButtonClicked()
 	{
-		//If changeMusicOnStart is true, fade out volume of music group of AudioMixer by calling FadeDown function of PlayMusic
-		//To change fade time, change length of animation "FadeToColor"
-		if (menuSettingsData.musicLoopToChangeTo != null) 
-		{
-			playMusic.FadeDown(menuSettingsData.menuFadeTime);
-		}
-
 		//Use invoke to delay calling of LoadDelayed by half the length of fadeColorAnimationClip
 		Invoke ("LoadDelayedOptionsMenu", menuSettingsData.menuFadeTime);
 
 		StartCoroutine(FadeCanvasGroupAlpha(0f, 1f, fadeOutImageCanvasGroup));
 
 	}
+
+
+	public void OptionsBackButtonClicked()
+	{
+		//Use invoke to delay calling of LoadDelayed by half the length of fadeColorAnimationClip
+		Invoke ("LoadDelayedOptionsMenuHide", menuSettingsData.menuFadeTime);
+
+		StartCoroutine(FadeCanvasGroupAlpha(0f, 1f, fadeOutImageCanvasGroup));
+
+	}
+
 
     void OnEnable()
     {
@@ -178,14 +182,9 @@ public class StartOptions : MonoBehaviour {
 		//Pause button now does not work if escape is pressed since we are going into the Main menu.
 		inMainMenu = true;
 
-		//Load the selected scene, by scene index number in build settings
-		//SceneManager.LoadScene (0);
-
-
 		//show the main menu UI element
 
 		StartCoroutine (FadeCanvasGroupAlpha (1f, 0f, fadeOutImageCanvasGroup));
-		showPanels.ShowMenu();
 
 		SceneManager.LoadScene ("Assets/CardFramework/AssetBundles/Scenes/MainMenu.unity", LoadSceneMode.Single);
 
@@ -203,6 +202,19 @@ public class StartOptions : MonoBehaviour {
 		showPanels.ShowOptionsPanel();
 
 		Debug.Log("LoadDelayedOptionsMenu");
+	}
+
+
+	public void LoadDelayedOptionsMenuHide()
+	{
+
+		//show the main menu UI element
+
+		StartCoroutine (FadeCanvasGroupAlpha (1f, 0f, fadeOutImageCanvasGroup));
+
+		showPanels.HideOptionsPanel();
+
+		Debug.Log("LoadDelayedOptionsMenuHide");
 	}
 
 	public void HideDelayed()
