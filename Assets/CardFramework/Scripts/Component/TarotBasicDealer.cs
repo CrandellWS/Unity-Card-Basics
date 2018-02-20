@@ -327,7 +327,9 @@ public class TarotBasicDealer : MonoBehaviour
 		float z = mCardSlot.GetComponent<Transform>().rotation.eulerAngles.z;
 		Quaternion rot = transform.localRotation;
 		rot.eulerAngles = new Vector3 (90f, y, z);
-		mCardSlot.GetComponent<Transform> ().rotation = rot;
+		Transform tTemp = mCardSlot.GetComponent<Transform> ();
+		tTemp.rotation = rot;
+		mCardSlot.TopCard ().TargetTransform.rotation = rot;
 	}
 
 	void FlipCardSlotDown(CardSlot mCardSlot){
@@ -335,8 +337,9 @@ public class TarotBasicDealer : MonoBehaviour
 		float y = mCardSlot.GetComponent<Transform>().rotation.eulerAngles.y;
 		float z = mCardSlot.GetComponent<Transform>().rotation.eulerAngles.z;
 		Quaternion rot = transform.localRotation;
-		rot.eulerAngles = new Vector3 (-90f, y, z);
-		mCardSlot.GetComponent<Transform> ().rotation = rot;
+		rot.eulerAngles = new Vector3 (270f, y, z);
+		Transform tTemp = mCardSlot.GetComponent<Transform> ();
+		tTemp.rotation = rot;
 	}
 
 
@@ -348,63 +351,69 @@ public class TarotBasicDealer : MonoBehaviour
 		if (_currentCardSlot.CardList.Count == 0) {
 							
 			if (mCardSlot == _prior0CardSlot) {
-				cardCheveron0Lock = false;
 
 				float x = _prior0CardSlot.GetComponent<Transform>().rotation.eulerAngles.x;
 				if (x == 270f) {
 					Debug.Log ("x = " + x);
 					FlipCardSlotUp (_prior0CardSlot);
+				} else {
+					_currentCardSlot.AddCard (mCardSlot.TopCard ());
+					cardCheveron0Lock = false;
 				}
-				else
-				_currentCardSlot.AddCard (mCardSlot.TopCard ());
 			}
 			if (mCardSlot == _prior1CardSlot) {
-				cardCheveron1Lock = false;	
 				float x = _prior1CardSlot.GetComponent<Transform>().rotation.eulerAngles.x;
-				if(x ==270f)
-				FlipCardSlotUp (_prior1CardSlot);
-				else
-				_currentCardSlot.AddCard (mCardSlot.TopCard ());
+				if (x == 270f)
+					FlipCardSlotUp (_prior1CardSlot);
+				else {
+					_currentCardSlot.AddCard (mCardSlot.TopCard ());
+					cardCheveron1Lock = false;	
+				}
 			}
 			if (mCardSlot == _prior2CardSlot) {
-				cardCheveron2Lock = false;	
-				float x = _prior2CardSlot.GetComponent<Transform>().rotation.eulerAngles.x;
-				if(x ==270f)
-				FlipCardSlotUp (_prior2CardSlot);
-				else
-				_currentCardSlot.AddCard (mCardSlot.TopCard ());
+				float x = _prior2CardSlot.GetComponent<Transform> ().rotation.eulerAngles.x;
+				if (x == 270f)
+					FlipCardSlotUp (_prior2CardSlot);
+				else {
+					_currentCardSlot.AddCard (mCardSlot.TopCard ());
+					cardCheveron2Lock = false;	
+				}
 			}
 			if (mCardSlot == _prior3CardSlot) {
-				cardCheveron3Lock = false;	
 				float x = _prior3CardSlot.GetComponent<Transform>().rotation.eulerAngles.x;
-				if(x ==270f)
-				FlipCardSlotUp (_prior3CardSlot);
-				else
-				_currentCardSlot.AddCard (mCardSlot.TopCard ());
+				if (x == 270f)
+					FlipCardSlotUp (_prior3CardSlot);
+				else {
+					_currentCardSlot.AddCard (mCardSlot.TopCard ());
+					cardCheveron3Lock = false;	
+				}
 			}
 			if (mCardSlot == _prior4CardSlot) {
-				cardCheveron4Lock = false;	
 				float x = _prior4CardSlot.GetComponent<Transform>().rotation.eulerAngles.x;
-				if(x ==270f)
-				FlipCardSlotUp (_prior4CardSlot);
-				else
-				_currentCardSlot.AddCard (mCardSlot.TopCard ());
+				if (x == 270f)
+					FlipCardSlotUp (_prior4CardSlot);
+				else {
+					_currentCardSlot.AddCard (mCardSlot.TopCard ());
+					cardCheveron4Lock = false;	
+				}
 			}
 			if (mCardSlot == _prior5CardSlot) {
-				cardCheveron5Lock = false;	
 				float x = _prior5CardSlot.GetComponent<Transform>().rotation.eulerAngles.x;
-				if(x ==270f)
-				FlipCardSlotUp (_prior5CardSlot);
-				else
-				_currentCardSlot.AddCard (mCardSlot.TopCard ());
+				if (x == 270f)
+					FlipCardSlotUp (_prior5CardSlot);
+				else {
+					_currentCardSlot.AddCard (mCardSlot.TopCard ());
+					cardCheveron5Lock = false;
+				}
 			}
 			if (mCardSlot == _prior6CardSlot) {
-				cardCheveron6Lock = false;	
 				float x = _prior6CardSlot.GetComponent<Transform>().rotation.eulerAngles.x;
-				if(x ==270f)
-				FlipCardSlotUp (_prior6CardSlot);
-				else
-				_currentCardSlot.AddCard (mCardSlot.TopCard ());
+				if (x == 270f)
+					FlipCardSlotUp (_prior6CardSlot);
+				else {
+					_currentCardSlot.AddCard (mCardSlot.TopCard ());
+					cardCheveron6Lock = false;	
+				}
 			}
 			
 			yield return new WaitForSeconds (CardStackDelay);
