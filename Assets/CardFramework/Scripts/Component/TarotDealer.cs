@@ -13,13 +13,7 @@ public class TarotDealer : MonoBehaviour
 	private CardSlot _pickupCardSlot;		
 
 	[SerializeField]
-	private CardSlot _stackCardSlot;	
-
-	[SerializeField]
-	private CardSlot _discardStackCardSlot;		
-
-	[SerializeField]
-	private CardSlot _discardHoverStackCardSlot;			
+	private CardSlot _stackCardSlot;		
 
 	[SerializeField]
 	private CardSlot _rightHandCardSlot;
@@ -93,8 +87,6 @@ public class TarotDealer : MonoBehaviour
 		TarotDealerUIInstance.FaceValueText.text = " ";
 		MoveCardSlotToCardSlot(_currentCardSlot, _pickupCardSlot);
 		cardCheveronCurrent = false;
-		MoveCardSlotToCardSlot(_discardStackCardSlot, _pickupCardSlot);
-		MoveCardSlotToCardSlot(_discardHoverStackCardSlot, _pickupCardSlot);
 		MoveCardSlotToCardSlot(_rightHandCardSlot, _pickupCardSlot);
 		MoveCardSlotToCardSlot(_leftHandCardSlot, _pickupCardSlot);
 		MoveCardSlotToCardSlot(_prior0CardSlot, _pickupCardSlot);
@@ -125,8 +117,6 @@ public class TarotDealer : MonoBehaviour
 		TarotDealerUIInstance.FaceValueText.text = " ";
 		MoveCardSlotToCardSlot(_currentCardSlot, _pickupCardSlot);
 		cardCheveronCurrent = false;
-		MoveCardSlotToCardSlot(_discardStackCardSlot, _pickupCardSlot);
-		MoveCardSlotToCardSlot(_discardHoverStackCardSlot, _pickupCardSlot);
 		MoveCardSlotToCardSlot(_rightHandCardSlot, _pickupCardSlot);
 		MoveCardSlotToCardSlot(_leftHandCardSlot, _pickupCardSlot);
 //		MoveCardSlotToCardSlot(_pickupCardSlot, _stackCardSlot);

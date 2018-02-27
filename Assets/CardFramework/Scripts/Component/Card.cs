@@ -28,8 +28,10 @@ public class Card : MonoBehaviour
 		} 
 	}		
 	private Transform _targetTransform;	
-    
+
 	public CardSlot ParentCardSlot { get; set; }
+
+	public string Description { get; set; }
 	
 	public string FaceValue { get; set; }
     
