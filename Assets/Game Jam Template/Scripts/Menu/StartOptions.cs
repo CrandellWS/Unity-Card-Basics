@@ -65,6 +65,22 @@ public class StartOptions : MonoBehaviour {
 
 	public void StartButtonClicked()
 	{
+    	StartButtonClickedRunIt();
+	}
+
+	public void scene1()
+	{
+	    sceneToStart = 1;
+    	StartButtonClickedRunIt();
+	}
+	public void scene2()
+	{
+	    sceneToStart = 2;
+    	StartButtonClickedRunIt();
+	}
+
+	private void StartButtonClickedRunIt()
+	{
 		//If changeMusicOnStart is true, fade out volume of music group of AudioMixer by calling FadeDown function of PlayMusic
 		//To change fade time, change length of animation "FadeToColor"
 		if (menuSettingsData.musicLoopToChangeTo != null) 
