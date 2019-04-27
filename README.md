@@ -7,7 +7,10 @@ has been altered for tarot cards. https://play.google.com/store/apps/details?id=
 Video of orignal app can be seen here:
 - https://www.youtube.com/watch?v=GrHJLHcWjSA
 
-Currently the app demonstrates these things:
+
+#### previously:
+
+ the app demonstrates these things:
 - Drops a deck of cards onto table instantiated from an AssetBundle.
 - Allows you to shuffle the deck of cards.
 - Allows you to draw a card.
