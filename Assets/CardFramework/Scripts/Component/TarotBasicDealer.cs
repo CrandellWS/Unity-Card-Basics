@@ -323,7 +323,9 @@ public class TarotBasicDealer : MonoBehaviour
 
 	void FlipCardSlotUp(CardSlot mCardSlot){
 
-		float y = mCardSlot.GetComponent<Transform>().rotation.eulerAngles.y;
+		//float y = mCardSlot.GetComponent<Transform>().rotation.eulerAngles.y;
+        int number = Random.Range(0,2);
+		float y = number==1?0f:-180f;
 		float z = mCardSlot.GetComponent<Transform>().rotation.eulerAngles.z;
 		Quaternion rot = transform.localRotation;
 		rot.eulerAngles = new Vector3 (90f, y, z);
