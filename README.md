@@ -2,6 +2,8 @@
 
 This is a basic example demonstrating how to create the basis of a system to deal with a card game in Unity.
 
+has been altered for tarot cards.
+
 Video of app running can be seen here:
 - https://www.youtube.com/watch?v=GrHJLHcWjSA
 
