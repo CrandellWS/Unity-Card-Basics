@@ -2,7 +2,7 @@
 
 This is a basic example demonstrating how to create the basis of a system to deal with a card game in Unity.
 
-has been altered for tarot cards. https://play.google.com/store/apps/details?id=ws.crandell.cards.tarot.basic
+has been altered for tarot cards. 
 
 Video of orignal app can be seen here:
 - https://www.youtube.com/watch?v=GrHJLHcWjSA
